@@ -1,14 +1,18 @@
 # grok-skills
 
-这是 Ruida 的 Grok Bot skills 备份。
+这是 Ruida 的 Grok Bot skills 备份。2026-11-02 与盒子工作流同步，共 32 个 skill。
 
 | 目录 | Skill 名称 | 说明 |
 |---|---|---|
+| ai-run | ai-run | 把写作、编码、规划和审稿交给 Claude Code、Codex 或 Antigravity 时走 ai-run，不要直接调用那些 CLI |
 | builder-intel-getting-started | builder-intel-getting-started | 一线建设者情报 bot 模板导入后，与新主人第一次对话时使用 |
-| explainer-video-production | explainer-video-production | 制作科普/历史/人物传记/技术原理类动画视频（含旁白与字幕） |
+| explainer-video-production | explainer-video-production | 制作科普、历史、人物、技术原理或调研类视频（YouTube 16:9 或 Shorts 9:16） |
 | getting-started | getting-started | 动画大师 bot 与新主人的第一次对话 |
-| skill-1791731700276 | 一线建设者动态深度解读 | 对 X 等平台上一线建设者、操盘手、顶级投资人的帖子做深度解读、产业链与美股影响分析，并跨期跟进论点 |
+| routine-healthcheck | routine-healthcheck | 每周检查各 bot 例行任务的失败、空跑和配额浪费，一切正常则保持沉默 |
+| skill-1791731700276 | 一线建设者动态深度解读 | 对 X 等平台上一线建设者、操盘手、顶级投资人的帖子做深度解读，写成可跨期跟进的投研简报与 HTML 长文 |
 | skill-1791777822743 | 视频深度长文（图文版） | 把 YouTube/视频链接改写成完整独立的中文深度长文（含关键图表），不是简短摘要 |
+| transcript-healthcheck | transcript-healthcheck | 扫描最近一天的 bot 对话，找出反复出现的摩擦并提议修复，没有问题则保持沉默 |
+| visual-quality-pipeline | visual-quality-pipeline | 做图表、信息图或解说/动画视频时，先规划、用代码渲染、看真实帧再修改，然后交付 |
 | aws-wechat-article-assets | aws-wechat-article-assets | 管理公众号业务资料库，并导入主题、配色与字体预设包 |
 | aws-wechat-article-formatting | aws-wechat-article-formatting | 把 Markdown 文稿转成微信可粘贴的 HTML，并切换排版主题 |
 | aws-wechat-article-images | aws-wechat-article-images | 按文章内容生成公众号封面与配图，支持多种画风 |
@@ -36,6 +40,6 @@
 ## 第三方来源
 
 - coreyhaines31/marketingskills（MIT）：copywriting、social、content-strategy、launch、cold-email、cro、lead-magnets、pricing
-- anthropics/skills：frontend-design、webapp-testing、skill-creator（许可证见各自目录下的 LICENSE.txt）
+- anthropics/skills（Apache-2.0，许可证见各自目录下的 LICENSE.txt）：frontend-design、webapp-testing、skill-creator
 - obra/superpowers（MIT，已轻量改写以便独立使用）：brainstorming、writing-plans、systematic-debugging
-- aiworkskills/wechat-article-skills（Apache-2.0，已移除发布与凭证相关脚本）：aws-wechat-*
+- aiworkskills/wechat-article-skills（Apache-2.0，已移除发布与凭证脚本 `publish.py`、`getdraft.py`；保留 `article_init.py`）：aws-wechat-*

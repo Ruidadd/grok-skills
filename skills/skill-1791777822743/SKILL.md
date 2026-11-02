@@ -5,12 +5,29 @@ description: >-
   wants it rewritten as a full standalone Chinese deep-dive article with key
   charts, not a short summary.
 ---
+
+> **硬性规定（用户 2026-10-15）**：
+> 1. 视频理解（读取、转写、分析、内容地图、取关键帧时间点）必须在盒子浏览器的 Gemini web 完成（gemini.google.com，已登录 wuruidav2@gmail.com）。Gemini web 读不了时才用 YouTube 字幕（yt-dlp）兜底，并在文中注明来源。不要用 Gemini 3.8 Flash 命令行（ai-run fast）转写视频，已验证失败。
+> 2. 调用 Claude/Codex 一律经 `ai-run <type> --bot "youtube Transcriber" < prompt.md`（共享技能 ai-run），禁止直接用 `claude -p` / `codex`。只有最后的中文长文润色可以用 `ai-run write`。
+> 3. yt-dlp 用于取元数据、截取视频帧做配图，以及 Gemini 失败时的字幕兜底。
+> 4. 输出一律是自包含 HTML（内嵌图片和目录），All-In 例行任务也一样。
+
+
+## Gemini web 读 YouTube 的固定操作（用户 2026-10-16 录屏示范）
+关键：必须从 @ 菜单里选 Gemini 技能「youtube-deep-article」（用户确认，不是 YouTube Music），光贴链接 Gemini 会说“无法解析链接”、空转或只回预览卡片。
+1. 在 gemini.google.com 点「新建聊天」（每条视频都开新对话）。模型保持默认即可（示范里是 Argon 或默认），不必切 Pro。
+2. 在输入框最前面输入 `@`（可以接着打 youtube 筛选），从菜单里点技能「youtube-deep-article」，让开头出现蓝色标签（必须是从菜单选出来的，不能是手打的文字）。
+3. 在标签后面接 youtu.be 短链接和提示词，例如：`@YouTube https://youtu.be/<id> 帮我详细总结这个视频的内容，按时间线给出，每段包含【mm:ss】，关键句保留英文原话。无须找我索要英文字幕`
+4. 发送。正常情况会先显示「Connecting to YouTube」，大约 2–4 分钟后输出按时间段分好的中文要点和英文原话摘录。
+5. 没覆盖到结尾时，在同一个对话里追问「继续到结尾」；然后从页面上把文字完整保存下来。
+只有按上面的步骤做了，Gemini 仍然读不了，才用字幕兜底。
+
 # 目标
 把一条视频彻底消化，重写成一篇可以替代观看原视频的中文深度长文：读者不看视频，也能获得 90% 以上有价值的信息（观点、论证链、案例、数据、技术细节、人物判断、争议、预测）。详细 > 简短，完整 > 精炼，理解逻辑 > 简单总结。
 
 # 1. 完整获取视频
-- 用 yt-dlp `--dump-json` 取标题、简介、时长、频道、章节、描述栏信息；字幕优先人工字幕，其次自动字幕；都没有或被限流（429）时，下载音频用 faster-whisper 转写。
-- 以完整字幕为主要依据，按上下文修正识别错误（尤其人名、公司名）。
+- 在 Gemini web 里提交视频链接，让 Gemini 输出完整的分段内容（带时间戳）、章节结构和关键画面时间点；内容较长时分段追问，直到覆盖全片。
+- yt-dlp `--dump-json` 只用来补充标题、频道、时长、简介等元数据；按上下文修正人名、公司名。
 - 无法完整读取时，明确说明能读到的范围和缺失部分；绝不根据标题编造。
 
 # 2. 内部建立内容地图
