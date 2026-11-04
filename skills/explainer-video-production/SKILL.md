@@ -1,21 +1,19 @@
 ---
 name: explainer-video-production
-description: >-
-  Use when asked to make an explainer, history, biography, tech-principle, or
-  research video (YouTube 16:9 or Shorts 9:16). Covers confirmation page,
-  storyboard, Remotion/HTML/Blender, TTS, and review before delivery.
+description: Use when asked to make an explainer, history, biography, tech-principle, or research video (YouTube 16:9 or Shorts 9:16). Covers confirmation page, storyboard, Remotion/HTML/Blender, TTS, and review before delivery.
 ---
 # Explainer video production
-All visuals in a video must follow the visual-quality-pipeline skill (/home/box/agent-data/workflows/visual-quality-pipeline/SKILL.md). Read it before the formal build. It covers planning, code-drawn numbers, a shared tokens.json, real animation at 1080p or above, and 2-3 rounds of frame review. Where the two skills conflict, it wins.
+All visuals in a video must follow the visual-quality-pipeline skill. Read it before the formal build. It covers planning, code-drawn numbers, a shared tokens.json, real animation at 1080p or above, and 2-3 rounds of frame review. Where the two skills conflict, it wins.
 
 Model calls: never call claude or codex directly; always go through the shared ai-run skill (`ai-run <mode> --bot <bot name> < prompt.md`).
 - `ai-run plan` for confirmation pages, storyboards, and scripts.
-- `ai-run code` (Codex) for all code: Remotion, HTML animation, Blender Python, and slide code.
-- `ai-run review -i <frames>` for rendered-frame review.
+- `ai-run build` (Claude) for video / complex implementation: Remotion, HTML animation, Blender Python.
+- `ai-run code` (Codex) only for medium scripts or static chart/slide helpers inside the pipeline.
+- `ai-run review -i <frames>` for rendered-frame review (Claude built → default Codex reviewer; do not add `--reviewer claude` unless Codex built).
 - `ai-run write` for narration copy.
 
 ## Circuit breaker (mandatory)
-In one run of a video task or routine: if the first `ai-run` call exits non-zero, stop immediately. Do not chain write→short→code→fast (or any other mode) as a retry. Fix the cause or report the failure; only a new user ask (or a new routine fire) starts a fresh run.
+In one run of a video task or routine: if the first `ai-run` call exits non-zero, stop immediately. Do not chain write→short→code→build→fast (or any other mode) as a retry. Fix the cause or report the failure; only a new user ask (or a new routine fire) starts a fresh run.
 
 ## Step 0 — Confirmation page (new videos only)
 Skip this only for small edits to an already-approved piece (fix tweak, one-shot fix, re-encode). For any new video:
@@ -26,9 +24,12 @@ Skip this only for small edits to an already-approved piece (fix tweak, one-shot
 ## Production steps
 1. Clarify only what changes the result: topic, length, aspect ratio (16:9 / 9:16), style, language. Otherwise decide and start (after Step 0 when required).
 2. Research and fact-check; write a scene-by-scene storyboard (`ai-run plan`) with narration lines and timings. Report contested claims as contested. Budget narration at about 4 Chinese characters per second.
-3. Visuals: build per visual-quality-pipeline with `ai-run code`. Remotion is preferred. An HTML animation with a seek hook like window.__go(t), recorded frame by frame with headless Chrome + Playwright, is acceptable when it meets the same bar. For tech-principle topics, consider the Anatomy skill (github.com/wheresryan22/anatomy) as the visual layer. Use 3D (Blender) only when truly needed, and budget render time first.
+3. Visuals: build per visual-quality-pipeline with `ai-run build` (Claude). Remotion is preferred. An HTML animation with a seek hook like window.__go(t), recorded frame by frame with headless Chrome + Playwright, is acceptable when it meets the same bar. For tech-principle topics, consider the Anatomy skill (github.com/wheresryan22/anatomy) as the visual layer. Use 3D (Blender) only when truly needed, and budget render time first.
 4. Real photos only from public-domain or CC sources, credited on screen and listed in sources.txt.
-5. Audio: TTS narration aligned per scene (speed up slightly rather than overrun), light background music ducked under narration.
+5. Audio: TTS narration aligned per scene (speed up slightly rather than overrun). Default no BGM (plain-style); if music is used, duck ~20dB under VO and no motion SFX.
 6. Export H.264 High yuv420p + AAC-LC + faststart, under the chat attachment limit (aim <100MB; offer split parts). Fully decode-check, then review sample frames with `ai-run review -i` and revise 2-3 rounds before sending.
 7. Reliability: max 2 heavy processes at once, run long jobs with nohup/setsid in resumable chunks, poll briefly.
 8. Deliver the video, 2 sample frames, and an honest list of compromises. Never publish anywhere without the owner's review.
+
+## 风格
+默认按 [plain-style](sand-workflow:plain-style)（少修饰、可核实）；与 visual-quality-pipeline 一起用。交付附 motion_ledger。

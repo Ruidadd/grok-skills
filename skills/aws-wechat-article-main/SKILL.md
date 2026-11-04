@@ -180,3 +180,6 @@ metadata:
 ## 分支与补充规则
 
 不在主路径上的情况全部写在 [references/branches.md](references/branches.md)：已有目录分支、发布后换图重发、退出码 1 的处理、全局三键为空时怎么问、续写重入的预设处理、单步子 skill 的边界。
+
+## 风格
+正文交付前执行 [plain-style](sand-workflow:plain-style) 写作验收与黑名单扫描；一种强调色，不用 emoji 小标题。

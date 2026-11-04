@@ -206,3 +206,6 @@ metadata:
 | 读取 | 产出 |
 |------|------|
 | `topic-card.md`、`.aws-article/config.yaml`、本篇 `article.yaml` | `draft.md`（含配图标记）；可能更新 `publish_method`；新建/补全 `article.yaml` 时保持 `publish_completed: false` |
+
+## 风格
+写稿/润色后执行 [plain-style](sand-workflow:plain-style) 写作验收。

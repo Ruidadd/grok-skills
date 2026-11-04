@@ -1,13 +1,18 @@
 # grok-skills
 
-这是 Ruida 的 Grok Bot skills 备份。2026-11-02 与盒子工作流同步，共 32 个 skill。
+这是 Ruida 的 Grok Bot skills 备份。2026-11-04 与盒子工作流同步，共 37 个 skill。
 
 | 目录 | Skill 名称 | 说明 |
 |---|---|---|
 | ai-run | ai-run | 把写作、编码、规划和审稿交给 Claude Code、Codex 或 Antigravity 时走 ai-run，不要直接调用那些 CLI |
 | builder-intel-getting-started | builder-intel-getting-started | 一线建设者情报 bot 模板导入后，与新主人第一次对话时使用 |
+| codex | Codex 信息图 | 用 Codex 做静态信息图（PNG/SVG）；动效短视频默认改走 Claude，数字只由代码绘制，审图修订后再交付 |
 | explainer-video-production | explainer-video-production | 制作科普、历史、人物、技术原理或调研类视频（YouTube 16:9 或 Shorts 9:16） |
+| focus-code | focus-code | 写程序、脚本或静态图表时的分流入口：复杂走 Claude build，中等走 Codex code，并带最小验收与熔断 |
+| focus-video | focus-video | 做解说、科普或 Shorts 视频时的总入口：确认、规划、实现、抽帧、跨模型审片，至少两轮修订后交付 |
+| focus-writing | focus-writing | 长文、简报、公众号和副业文案的写作入口：规划、写作、跨模型审稿后落盘，正文不贴进对话 |
 | getting-started | getting-started | 动画大师 bot 与新主人的第一次对话 |
+| plain-style | plain-style | 少修饰、可核实的写作和视频硬约束与黑名单；写文章、口播或做讲解视频时，交付前必须验收 |
 | routine-healthcheck | routine-healthcheck | 每周检查各 bot 例行任务的失败、空跑和配额浪费，一切正常则保持沉默 |
 | skill-1791731700276 | 一线建设者动态深度解读 | 对 X 等平台上一线建设者、操盘手、顶级投资人的帖子做深度解读，写成可跨期跟进的投研简报与 HTML 长文 |
 | skill-1791777822743 | 视频深度长文（图文版） | 把 YouTube/视频链接改写成完整独立的中文深度长文（含关键图表），不是简短摘要 |
