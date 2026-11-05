@@ -1,10 +1,10 @@
 # grok-skills
 
-这是 Ruida 的 Grok Bot skills 备份。2026-11-04 与盒子工作流同步，共 37 个 skill。
+这是 Ruida 的 Grok Bot skills 备份。2026-11-05 与盒子工作流同步，共 37 个 skill。
 
 | 目录 | Skill 名称 | 说明 |
 |---|---|---|
-| ai-run | ai-run | 把写作、编码、规划和审稿交给 Claude Code、Codex 或 Antigravity 时走 ai-run，不要直接调用那些 CLI |
+| ai-run | ai-run | 把写作、编码、规划、审稿、调研或 Gemini 快任务交给 Claude、Codex 或 Gemini 时走共享 ai-run CLI，不要直接调用那些 CLI |
 | builder-intel-getting-started | builder-intel-getting-started | 一线建设者情报 bot 模板导入后，与新主人第一次对话时使用 |
 | codex | Codex 信息图 | 用 Codex 做静态信息图（PNG/SVG）；动效短视频默认改走 Claude，数字只由代码绘制，审图修订后再交付 |
 | explainer-video-production | explainer-video-production | 制作科普、历史、人物、技术原理或调研类视频（YouTube 16:9 或 Shorts 9:16） |
