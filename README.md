@@ -1,6 +1,6 @@
 # grok-skills
 
-这是 Ruida 的 Grok Bot skills 备份。2026-11-05 与盒子工作流同步，共 37 个 skill。
+这是 Ruida 的 Grok Bot skills 备份。2026-11-14 与盒子工作流同步，共 37 个 skill。
 
 | 目录 | Skill 名称 | 说明 |
 |---|---|---|

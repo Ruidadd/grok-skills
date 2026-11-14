@@ -1,12 +1,17 @@
 ---
 name: focus-video
-description: 做解说/科普/Shorts 等视频时的总入口：确认页→plan→tokens→build 实现→抽帧→跨模型 review→≥2 轮修订后交付。
+description: >-
+  做解说/科普/Shorts 等视频时的总入口：确认页→plan→tokens→Claude Code 调 Blender/Remotion/Unity
+  实现→抽帧→跨模型 review→≥2 轮修订后交付。Grok 只分派，不渲染。
 ---
 # 视频工作流（薄入口）
 详细规范见 `explainer-video-production` 与 `visual-quality-pipeline`，本文只定路由与门禁。
 
+## 配额（硬约束）
+Grok 只分派：收需求、交出确认页、调用 `ai-run`、回传路径与摘要。禁止用 Grok 的 GenerateVideo，禁止在 Grok 对话里写分镜正文、写实现代码或渲染。制作（含 Blender / Remotion / Unity / 配音对齐）一律 `ai-run build`，由 Claude Code 在本机调用已安装工具完成。
+
 ## 触发
-新视频、改版成片、动画/Remotion、口播视频。静态信息图不走这里（走 focus-code → `code`）。
+新视频、改版成片、动画（Remotion / Blender / Unity）、口播视频。静态信息图不走这里（走 focus-code → `code`）。
 
 ## 目录
 `video/<topic>-YYYY-MM-DD/{brief,plan,tokens.json,script,src,out,review,sources.txt}`
@@ -16,9 +21,14 @@ description: 做解说/科普/Shorts 等视频时的总入口：确认页→plan
 |---|---|---|
 | 确认页 / 分镜 | `plan` | Claude |
 | 口播稿 / 字幕 | `write` / `short` | Claude |
-| 实现（Remotion 等） | `build` | Claude |
+| 实现（Claude Code 调 Blender / Remotion / Unity 等） | `build` | Claude |
 | 审帧 | `review` | Claude 建 → Codex 审 |
 | 素材调研 | `research` / `youtube` | Gemini（按需） |
+
+## 本机工具
+- Blender：`blender --background --python <script.py>`（命令 `/home/box/.local/bin/blender`，安装目录 `/home/box/.local/blender`，当前 5.2.4 LTS）。不在 PATH 时不要改走 Grok 渲染。
+- Unity：仅当本机已安装且有许可证时，由 Claude Code 调用；未安装则不要安装、不要调用，改用 Blender 或 Remotion。
+- Remotion / HTML + Playwright 仍可用于二维讲解。
 
 ## 门禁
 1. 新片必须先过确认页，用户确认后再开工。

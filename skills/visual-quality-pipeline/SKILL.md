@@ -1,18 +1,25 @@
 ---
 name: visual-quality-pipeline
 description: >-
-  Use whenever making a chart, infographic, data graphic, or explainer/animated video with Claude Code or Codex, so the output is planned, code-rendered, reviewed from real frames, and revised before delivery.
+  Use whenever making a chart, infographic, data graphic, or explainer/animated
+  video with Claude Code or Codex, so the output is planned, code-rendered,
+  reviewed from real frames, and revised before delivery. Video implementation
+  is Claude Code on this machine (Blender/Remotion/Unity), never Grok
+  GenerateVideo.
 ---
 # Visual quality pipeline
 
 One-shot generation is banned. Every chart or video goes plan -> build -> render -> look -> revise.
+
+## Quota (videos)
+Grok only dispatches and returns paths. Do not use Grok's GenerateVideo, and do not render in the Grok turn. Video implementation is `ai-run build`: Claude Code on this machine calls Blender (`/home/box/.local/bin/blender --background --python …`), Remotion, or Unity only if already installed.
 
 ## Hard rules
 - Before delivery, run [plain-style](sand-workflow:plain-style) acceptance (video checklist + blacklist + motion_ledger).
 - Numbers and text are never drawn by an image-generation model. Charts come from code (ECharts, Vega-Lite or Plotly) with one theme. Image models only for backgrounds or illustrations with no text.
 - Every visual reads colors, font sizes, spacing and fonts from one `tokens.json`. Chinese text uses Noto Sans CJK SC (installed). Never hardcode one-off colors or sizes.
 - Output at least 1920x1080 (or 1080x1920 vertical), 30 or 60 fps, CRF 18 or lower. Charts exported as SVG or PNG at 2x.
-- Videos are real animation (Remotion preferred) when motion carries information: point (highlight/arrow), change (A→B), or sequence (items appear with VO). Every motion goes in `motion_ledger` (timecode, role, what it explains). Empty-role motion is banned. A still image with a slow zoom / Ken Burns is not acceptable. Default profile `plain` (see plain-style); `showcase` only when the user asks.
+- Videos are real animation when motion carries information: point (highlight/arrow), change (A→B), or sequence (items appear with VO). 2D motion graphics default to Remotion (or HTML + Playwright). Use Blender for 3D / spatial shots. Use Unity only if already installed and licensed. Every motion goes in `motion_ledger` (timecode, role, what it explains). Empty-role motion is banned. A still image with a slow zoom / Ken Burns is not acceptable. Default profile `plain` (see plain-style); `showcase` only when the user asks.
 - `tokens.json` must include motion/transition/subtitle/audio restraint tokens (ease-out 200–400ms, max_concurrent 1, transition default cut, subtitle animation none, music_default none, sfx_on_motion false). Render only via tokens; no hardcoded glitter.
 - Revision rounds: round 1 full cut; round 2 **delete-only** against motion_ledger + plain-style blacklist; round 3 polish cuts/align/captions/loudness/typos. Adding motion after round 2 needs a ledger reason.
 - Never deliver something you have not looked at as rendered frames.
@@ -22,7 +29,7 @@ One-shot generation is banned. Every chart or video goes plan -> build -> render
 |---|---|
 | Storyboard / design plan (once) | `ai-run plan --bot <名字> --out plan.md < brief.md` (Claude xhigh) |
 | Writing **static chart / infographic** code | `ai-run code --bot <名字> < task.md` (Codex high) |
-| Writing **video / complex program** code | `ai-run build --bot <名字> [--effort high\|xhigh] < task.md` (Claude; default high) |
+| Writing **video / complex program** code and driving Blender / Remotion / Unity | `ai-run build --bot <名字> [--effort high\|xhigh] < task.md` (Claude Code; default high) |
 | Reviewing rendered frames | Builder was Codex → `ai-run review --bot <名字> --reviewer claude -i sheet.png < checklist.md`；Builder was Claude (`build`) → `ai-run review --bot <名字> -i sheet.png < checklist.md`（默认 Codex） |
 | Short captions / copy | `ai-run short --bot <名字> < copy.md` (Claude medium) |
 Pass long prompts via a file (`< prompt.md`), never an empty stdin.
@@ -32,7 +39,7 @@ Pass long prompts via a file (`< prompt.md`), never an empty stdin.
 2. **Design tokens.** Create or reuse `tokens.json` (palette, type scale, margins, font paths). Reuse the previous project's file if it worked.
 3. **Build.**
    - Static charts / info graphics → `ai-run code` (Codex).
-   - Video implementation (Remotion etc.) and other complex programs → `ai-run build` (Claude).
+   - Video implementation and other complex programs → `ai-run build` (Claude Code), which must invoke the local tool (Blender / Remotion / Unity if present), not ask Grok to render.
    Reuse saved components before writing new ones; code must read the tokens.
 4. **Render keyframes.** Charts: render the PNG. Video: render, then pull 3 frames per shot into one contact sheet (`ffmpeg -i out.mp4 -vf "fps=1/2,scale=640:-1,tile=4x3" sheet.png`).
 5. **Review with a different model** than the builder (Claude reviews Codex's work or the reverse), scoring the checklist below; output a numbered list of concrete fixes.
