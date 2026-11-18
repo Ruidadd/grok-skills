@@ -1,12 +1,13 @@
 # grok-skills
 
-这是 Ruida 的 Grok Bot skills 备份。2026-11-14 与盒子工作流同步，共 37 个 skill。
+这是 Ruida 的 Grok Bot skills 备份。2026-11-18 与盒子工作流同步，共 38 个 skill。
 
 | 目录 | Skill 名称 | 说明 |
 |---|---|---|
 | ai-run | ai-run | 把写作、编码、规划、审稿、调研或 Gemini 快任务交给 Claude、Codex 或 Gemini 时走共享 ai-run CLI，不要直接调用那些 CLI |
 | builder-intel-getting-started | builder-intel-getting-started | 一线建设者情报 bot 模板导入后，与新主人第一次对话时使用 |
 | codex | Codex 信息图 | 用 Codex 做静态信息图（PNG/SVG）；动效短视频默认改走 Claude，数字只由代码绘制，审图修订后再交付 |
+| dwarkesh-ai-rnd-avalanche | dwarkesh-ai-rnd-avalanche | 判断或核对 AI 研发自动化、递归自我提升（RSI）和超人级研究员时间线时加载；材料来自 Dwarkesh Patel 2026-11-13 视频文章 |
 | explainer-video-production | explainer-video-production | 制作科普、历史、人物、技术原理或调研类视频（YouTube 16:9 或 Shorts 9:16） |
 | focus-code | focus-code | 写程序、脚本或静态图表时的分流入口：复杂走 Claude build，中等走 Codex code，并带最小验收与熔断 |
 | focus-video | focus-video | 做解说、科普或 Shorts 视频时的总入口：确认、规划、实现、抽帧、跨模型审片，至少两轮修订后交付 |
