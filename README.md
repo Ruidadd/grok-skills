@@ -1,6 +1,6 @@
 # grok-skills
 
-这是 Ruida 的 Grok Bot skills 备份。2026-11-18 与盒子工作流同步，共 38 个 skill。
+这是 Ruida 的 Grok Bot skills 备份。2026-11-21 与盒子工作流同步，共 39 个 skill。
 
 | 目录 | Skill 名称 | 说明 |
 |---|---|---|
@@ -19,6 +19,7 @@
 | skill-1791777822743 | 视频深度长文（图文版） | 把 YouTube/视频链接改写成完整独立的中文深度长文（含关键图表），不是简短摘要 |
 | transcript-healthcheck | transcript-healthcheck | 扫描最近一天的 bot 对话，找出反复出现的摩擦并提议修复，没有问题则保持沉默 |
 | visual-quality-pipeline | visual-quality-pipeline | 做图表、信息图或解说/动画视频时，先规划、用代码渲染、看真实帧再修改，然后交付 |
+| youtube-daily-picks | youtube-daily-picks | 从已订阅和未订阅频道生成每日 YouTube 视频推荐（必看 / 没订阅但值得看 / 选看），并把必看加入指定播放列表 |
 | aws-wechat-article-assets | aws-wechat-article-assets | 管理公众号业务资料库，并导入主题、配色与字体预设包 |
 | aws-wechat-article-formatting | aws-wechat-article-formatting | 把 Markdown 文稿转成微信可粘贴的 HTML，并切换排版主题 |
 | aws-wechat-article-images | aws-wechat-article-images | 按文章内容生成公众号封面与配图，支持多种画风 |
